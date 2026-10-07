@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:app_sesion_06/main.dart';
@@ -19,8 +21,42 @@ import 'package:app_sesion_06/ejercicios/ejercicio_6.dart';
 import 'package:app_sesion_06/ejercicios/ejercicio_7.dart';
 import 'package:app_sesion_06/ejercicios/autoevaluacion_sesion_06.dart';
 
+Future<void> _cargarFuentesReales() async {
+  // 1. Cargar MaterialIcons para glifos e iconos
+  final iconFile = File(r'C:\Users\PC\flutter\bin\cache\artifacts\material_fonts\materialicons-regular.otf');
+  if (iconFile.existsSync()) {
+    final fontLoader = FontLoader('MaterialIcons');
+    fontLoader.addFont(Future.value(ByteData.sublistView(iconFile.readAsBytesSync())));
+    await fontLoader.load();
+  }
+
+  // 2. Cargar fuente tipográfica del sistema (Segoe UI) mapeada a la fuente por defecto
+  final fontFile = File(r'C:\Windows\Fonts\segoeui.ttf');
+  if (fontFile.existsSync()) {
+    final fontLoader = FontLoader('Roboto');
+    fontLoader.addFont(Future.value(ByteData.sublistView(fontFile.readAsBytesSync())));
+    await fontLoader.load();
+
+    final sansLoader = FontLoader('sans-serif');
+    sansLoader.addFont(Future.value(ByteData.sublistView(fontFile.readAsBytesSync())));
+    await sansLoader.load();
+  }
+
+  // Cargar negrita para títulos
+  final boldFile = File(r'C:\Windows\Fonts\segoeuib.ttf');
+  if (boldFile.existsSync()) {
+    final fontLoader = FontLoader('Roboto');
+    fontLoader.addFont(Future.value(ByteData.sublistView(boldFile.readAsBytesSync())));
+    await fontLoader.load();
+  }
+}
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() async {
+    await _cargarFuentesReales();
+  });
 
   final List<Map<String, dynamic>> screensToCapture = [
     {'name': 'captura_menu_principal.png', 'widget': const MenuPrincipalGuia6()},
@@ -41,13 +77,10 @@ void main() {
 
   for (final screen in screensToCapture) {
     testWidgets('Generar captura real de ${screen['name']}', (WidgetTester tester) async {
-      // Ignorar errores intencionales de layout durante la simulación de errores
       final originalOnError = FlutterError.onError;
-      FlutterError.onError = (FlutterErrorDetails details) {
-        // Silenciar RenderFlex overflow intencionales de los ejercicios de muestra
-      };
+      FlutterError.onError = (FlutterErrorDetails details) {};
 
-      tester.view.physicalSize = const Size(1080, 2400);
+      tester.view.physicalSize = const Size(1080, 2340);
       tester.view.devicePixelRatio = 2.75;
 
       final GlobalKey key = GlobalKey();
@@ -56,6 +89,7 @@ void main() {
         MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            fontFamily: 'Roboto',
             colorScheme: ColorScheme.fromSeed(
               seedColor: const Color(0xFF7A1F2B),
               primary: const Color(0xFF7A1F2B),
@@ -75,12 +109,12 @@ void main() {
         ),
       );
 
-      await tester.pump(const Duration(milliseconds: 500));
+      await tester.pump(const Duration(milliseconds: 600));
 
       await tester.runAsync(() async {
         final boundary = key.currentContext?.findRenderObject() as RenderRepaintBoundary?;
         if (boundary != null) {
-          final ui.Image image = await boundary.toImage(pixelRatio: 1.0);
+          final ui.Image image = await boundary.toImage(pixelRatio: 2.0); // Mayor resolución y nitidez
           final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
           if (byteData != null) {
             final buffer = byteData.buffer.asUint8List();

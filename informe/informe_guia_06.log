@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.10)  7 OCT 2026 03:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.10)  7 OCT 2026 03:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -986,42 +986,42 @@ ingleChildScrollView
  []
 
 [5]
-<imagenes/captura_menu_principal.png, id=147, 394.47375pt x 876.27374pt>
+<imagenes/captura_menu_principal.png, id=147, 788.9475pt x 1708.3825pt>
 File: imagenes/captura_menu_principal.png Graphic file (type png)
 <use imagenes/captura_menu_principal.png>
 Package pdftex.def Info: imagenes/captura_menu_principal.png  used on input lin
 e 306.
-(pdftex.def)             Requested size: 218.51521pt x 485.40172pt.
-<imagenes/captura_perfil_saire.png, id=148, 394.47375pt x 876.27374pt>
+(pdftex.def)             Requested size: 218.51521pt x 473.15636pt.
+<imagenes/captura_perfil_saire.png, id=148, 788.9475pt x 1708.3825pt>
 File: imagenes/captura_perfil_saire.png Graphic file (type png)
 <use imagenes/captura_perfil_saire.png>
 Package pdftex.def Info: imagenes/captura_perfil_saire.png  used on input line 
 313.
-(pdftex.def)             Requested size: 218.51521pt x 485.40172pt.
-<imagenes/captura_guia_aplicacion_03.png, id=149, 394.47375pt x 876.27374pt>
+(pdftex.def)             Requested size: 218.51521pt x 473.15636pt.
+<imagenes/captura_guia_aplicacion_03.png, id=149, 788.9475pt x 1708.3825pt>
 File: imagenes/captura_guia_aplicacion_03.png Graphic file (type png)
 <use imagenes/captura_guia_aplicacion_03.png>
 Package pdftex.def Info: imagenes/captura_guia_aplicacion_03.png  used on input
  line 323.
-(pdftex.def)             Requested size: 218.51521pt x 485.40172pt.
-<imagenes/captura_autoevaluacion.png, id=150, 394.47375pt x 876.27374pt>
+(pdftex.def)             Requested size: 218.51521pt x 473.15636pt.
+<imagenes/captura_autoevaluacion.png, id=150, 788.9475pt x 1708.3825pt>
 File: imagenes/captura_autoevaluacion.png Graphic file (type png)
 <use imagenes/captura_autoevaluacion.png>
 Package pdftex.def Info: imagenes/captura_autoevaluacion.png  used on input lin
 e 330.
-(pdftex.def)             Requested size: 218.51521pt x 485.40172pt.
-<imagenes/captura_ejercicio_2.png, id=151, 394.47375pt x 876.27374pt>
+(pdftex.def)             Requested size: 218.51521pt x 473.15636pt.
+<imagenes/captura_ejercicio_2.png, id=151, 788.9475pt x 1708.3825pt>
 File: imagenes/captura_ejercicio_2.png Graphic file (type png)
 <use imagenes/captura_ejercicio_2.png>
 Package pdftex.def Info: imagenes/captura_ejercicio_2.png  used on input line 3
 40.
-(pdftex.def)             Requested size: 218.51521pt x 485.40172pt.
-<imagenes/captura_ejercicio_4.png, id=152, 394.47375pt x 876.27374pt>
+(pdftex.def)             Requested size: 218.51521pt x 473.15636pt.
+<imagenes/captura_ejercicio_4.png, id=152, 788.9475pt x 1708.3825pt>
 File: imagenes/captura_ejercicio_4.png Graphic file (type png)
 <use imagenes/captura_ejercicio_4.png>
 Package pdftex.def Info: imagenes/captura_ejercicio_4.png  used on input line 3
 47.
-(pdftex.def)             Requested size: 218.51521pt x 485.40172pt.
+(pdftex.def)             Requested size: 218.51521pt x 473.15636pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 361--361
 []\T1/cmtt/m/n/10.95 RenderFlex overflowed by
@@ -1092,10 +1092,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 364--364
 \T1/cmtt/m/n/10.95 SizedBox(width:
  []
 
-[6] [7 <./imagenes/captura_menu_principal.png> <./imagenes/captura_perfil_saire
-.png>] [8 <./imagenes/captura_guia_aplicacion_03.png> <./imagenes/captura_autoe
-valuacion.png>] [9 <./imagenes/captura_ejercicio_2.png> <./imagenes/captura_eje
-rcicio_4.png>]
+[6 <./imagenes/captura_menu_principal.png> <./imagenes/captura_perfil_saire.png
+>] [7 <./imagenes/captura_guia_aplicacion_03.png> <./imagenes/captura_autoevalu
+acion.png>] [8 <./imagenes/captura_ejercicio_2.png> <./imagenes/captura_ejercic
+io_4.png>] [9]
 Overfull \hbox (91.05812pt too wide) in paragraph at lines 411--423
  [][] 
  []
@@ -1135,7 +1135,7 @@ nappen/ec/dpi600\ecbx1728.pk><C:/Users/PC/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmmi12.pfb><C:/Users/PC/AppData/Local/Programs/MiKTeX/f
 onts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/PC/AppData/Local/Programs/MiK
 TeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on informe_guia_06.pdf (12 pages, 446505 bytes).
+Output written on informe_guia_06.pdf (12 pages, 825028 bytes).
 PDF statistics:
  759 PDF objects out of 1000 (max. 8388607)
  54 named destinations out of 1000 (max. 500000)
