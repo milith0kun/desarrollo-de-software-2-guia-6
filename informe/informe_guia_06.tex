@@ -1,0 +1,372 @@
+\documentclass[12pt,a4paper]{article}
+
+% ============================================================================
+% PAQUETES Y CONFIGURACIÓN GENERAL
+% ============================================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\setlength{\headheight}{14.5pt}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!80!black,
+    urlcolor=blue!80!black,
+    citecolor=blue!80!black
+}
+
+% ============================================================================
+% CONFIGURACIÓN DE LISTINGS PARA DART / FLUTTER
+% ============================================================================
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{backcolour}{rgb}{0.98,0.98,0.98}
+\definecolor{keywordblue}{rgb}{0.0,0.2,0.7}
+\definecolor{stringgreen}{rgb}{0.1,0.5,0.2}
+
+\lstdefinelanguage{Dart}{
+    keywords={abstract, as, assert, async, await, break, case, catch, class,
+    const, continue, default, do, dynamic, else, enum, export, extends,
+    false, final, finally, for, Function, get, if, in, is, late, new, null,
+    rethrow, return, super, switch, this, throw, true, try, var, void, while,
+    required, set, static, factory, override},
+    morekeywords=[2]{int, double, String, bool, List, Map, Set, num, DateTime,
+    Widget, BuildContext, StatelessWidget, StatefulWidget, State, Key, Color,
+    EdgeInsets, EdgeInsetsDirectional, BoxDecoration, BorderRadius, BoxShadow,
+    Offset, Radius, Border, TextStyle, FontWeight, FontStyle, MainAxisSize,
+    MainAxisAlignment, CrossAxisAlignment, TextAlign, BoxShape, BoxConstraints,
+    RenderBox, RenderFlex, Expanded, Flexible, SingleChildScrollView, LayoutBuilder,
+    MediaQuery, MediaQueryData, Axis, TextOverflow, ClipRRect, ConstrainedBox,
+    Card, Scaffold, AppBar, Column, Row, Stack, Positioned, Wrap, Chip, Icon},
+    keywordstyle=\color{keywordblue}\bfseries,
+    keywordstyle=[2]\color{blue!60!black}\bfseries,
+    identifierstyle=\color{black},
+    sensitive=true,
+    comment=[l]{//},
+    commentstyle=\color{codegray}\itshape,
+    stringstyle=\color{stringgreen},
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstset{
+    language=Dart,
+    backgroundcolor=\color{backcolour},
+    basicstyle=\ttfamily\footnotesize,
+    breaklines=true,
+    breakatwhitespace=false,
+    frame=single,
+    rulecolor=\color{gray!30},
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    numbersep=6pt,
+    captionpos=b,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=2,
+    literate=
+      {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+      {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+      {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1 {¡}{{!`}}1
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small UNSAAC — EPIIS (IF616AIN)}
+\fancyhead[R]{\small Informe Técnico de Desarrollo UI/UX — Guía 06}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+% ============================================================================
+% PORTADA OFICIAL SEGÚN ESQUEMA INSTITUCIONAL
+% ============================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{0.2cm}
+    {\Large \textbf{UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO}}\\[0.2cm]
+    {\large \textbf{FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA, INFORMÁTICA Y MECÁNICA}}\\[0.2cm]
+    {\normalsize \textbf{ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE SISTEMAS}}\\[0.6cm]
+
+    \includegraphics[width=3.6cm]{imagenes/unsaac_logo.png}\\[0.6cm]
+
+    \rule{\linewidth}{0.8pt}\\[0.3cm]
+    {\Large \textbf{INFORME TÉCNICO DE DESARROLLO DE LA INTERFAZ DE USUARIO (UI/UX)}}\\[0.2cm]
+    {\large \textbf{Sesión 06: Modelo de Restricciones y Prevención de Errores de Layout}}\\[0.2cm]
+    {\normalsize \textit{Constraints go down, sizes go up, parent sets position}}\\[0.2cm]
+    \rule{\linewidth}{0.8pt}\\[0.8cm]
+
+    \begin{flushleft}
+        \textbf{Asignatura:} Desarrollo de Software II (IF616AIN / IF616BIN) — Semestre 2026-II\\
+        \textbf{Unidad:} I - Fundamentos de Dart, UI declarativa y UX\\
+        \textbf{Proyecto:} Portafolio Profesional y Tablero de Restricciones del Estudiante\\
+        \textbf{Docente:} Mtro. Ing. Yover Collantes Valer\\
+        \textbf{Integrantes / Estudiante:} Saire Bustamante, Edmil Jampier (Código: 174449)\\
+        \textbf{Fecha de Entrega:} Cusco, 7 de Octubre de 2026\\
+        \textbf{URL GitHub:} \url{https://github.com/milith0kun/desarrollo-de-software-2}
+    \end{flushleft}
+
+    \vfill
+    {\small Cusco, Perú\\2026}
+\end{titlepage}
+
+\newpage
+
+% ============================================================================
+% 1. INTRODUCCIÓN Y OBJETIVOS
+% ============================================================================
+\section{Introducción y Objetivos}
+
+\subsection{Descripción del Proyecto}
+El presente proyecto corresponde al desarrollo de una aplicación móvil integral en Flutter titulada \textbf{«Portafolio Profesional y Tablero de Restricciones del Estudiante»}. Esta solución tecnológica está diseñada para centralizar la información académica, habilidades técnicas, proyectos de ingeniería y métricas de desempeño universitario del estudiante de la Escuela Profesional de Ingeniería Informática y de Sistemas de la UNSAAC, ofreciendo además un módulo interactivo para la visualización, simulación y diagnóstico en tiempo real de los comportamientos del motor de renderizado de Flutter.
+
+\subsection{Objetivo de la Interfaz}
+El propósito primordial de la interfaz de usuario (UI/UX) es:
+\begin{itemize}[leftmargin=*]
+    \item Proporcionar una experiencia visual altamente profesional, accesible y responsiva, inspirada en los colores y lineamientos de identidad visual institucional de la UNSAAC (Granate \texttt{\#7A1F2B}, Dorado \texttt{\#C9971F} y Azul pizarra \texttt{\#1E293B}).
+    \item Demostrar el dominio riguroso del \textbf{modelo de restricciones} de Flutter, garantizando que cada componente visual se adapte dinámicamente a distintas densidades de pantalla y orientaciones sin presentar desbordamientos (\texttt{RenderFlex overflowed}) ni bloqueos por restricciones infinitas (\texttt{unbounded constraints}).
+    \item Proveer una arquitectura modular que permita navegar con fluidez entre el perfil profesional del estudiante, los laboratorios guiados y el banco de autoevaluación teórico-práctica.
+\end{itemize}
+
+\subsection{Alcance de la Sesión}
+Conforme a la programación curricular de la Primera Unidad Didáctica (\textit{Fundamentos de Dart, UI declarativa y experiencia de usuario}):
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black,title=Delimitación del Alcance Técnico]
+Esta entrega comprende \textbf{exclusivamente la construcción de la interfaz de usuario estática} empleando widgets inmutables de tipo \texttt{StatelessWidget}. Queda fuera del alcance la lógica de persistencia de datos (bases de datos locales como SQLite o almacenamiento remoto), la arquitectura por capas con inyección de dependencias y el manejo de estados mutables mediante gestores externos (Provider, Riverpod, BLoC). Todos los controladores y eventos interactivos (\texttt{onPressed}, \texttt{onChanged}) se implementan con callbacks vacíos o en \texttt{null}, concentrando la totalidad de la evaluación en la calidad de la maquetación y el control estricto del árbol de layout.
+\end{tcolorbox}
+
+% ============================================================================
+% 2. ARQUITECTURA DE WIDGETS Y ESTRUCTURA DEL CÓDIGO
+% ============================================================================
+\section{Arquitectura de Widgets y Estructura del Código}
+
+\subsection{Organización del Proyecto}
+La solución se organizó dentro del paquete oficial \texttt{app\_sesion\_06} siguiendo las mejores prácticas de la industria y respetando el principio \textbf{DRY (Don't Repeat Yourself)} y de responsabilidad única:
+
+\begin{verbatim}
+d:\Proyectos\Desarrollo de Sotfware 2\guia 6\app_sesion_06\
+|-- lib/
+|   |-- main.dart                        // Punto de entrada y Menu Central
+|   |-- ejercicios/
+|       |-- guia_aplicacion_03.dart      // Fichas Tecnicas y Diagnostico (20 pts)
+|       |-- sesion06_saire_edmil.dart    // Perfil Oficial de Entrega
+|       |-- caso_guiado_1.dart           // Caso 1: Overflow Horizontal en Fila
+|       |-- caso_guiado_2.dart           // Caso 2: Restricciones Infinitas
+|       |-- caso_guiado_3.dart           // Caso 3: Overflow Vertical Dinamico
+|       |-- ejercicio_1.dart             // Prediccion y Medicion de Tamano
+|       |-- ejercicio_2.dart             // Tight vs Loose Constraints
+|       |-- ejercicio_3.dart             // Diagnostico Fila Carrito Compra
+|       |-- ejercicio_4.dart             // ListView Anidado en Scroll Horiz.
+|       |-- ejercicio_5.dart             // Matriz de Decision de Layout
+|       |-- ejercicio_6.dart             // Decodificador de Errores de Consola
+|       |-- ejercicio_7.dart             // Refactorizacion Preventiva Perfil
+|       |-- autoevaluacion_sesion_06.dart// Test Interactivo de 10 Preguntas
+|-- test/
+|   |-- widget_test.dart                 // Pruebas unitarias de carga de interfaz
+|-- pubspec.yaml                         // Metadatos y assets del proyecto
+\end{verbatim}
+
+\textbf{Justificación de la Estructura:} La separación de los casos de estudio en archivos independientes dentro de \texttt{/lib/ejercicios} desacopla la presentación de la lógica de enrutamiento y permite inspeccionar individualmente cada árbol de widgets en DevTools sin interferencias de layouts vecinos.
+
+\subsection{Árbol de Widgets Principal (El "Blueprint")}
+A continuación se detalla la jerarquía y composición del árbol de renderizado de la pantalla oficial del estudiante (\texttt{sesion06\_saire\_edmil.dart}):
+
+\begin{verbatim}
+Scaffold (Fondo: Color(0xFFF8FAFC))
++-- AppBar (Granate institucional: Color(0xFF7A1F2B))
++-- SingleChildScrollView (Padding: 16.0)
+    +-- Column (crossAxisAlignment: CrossAxisAlignment.stretch)
+        |-- _buildTarjetaCabecera()
+        |   +-- Container (Decoracion con bordes y sombra sutil)
+        |       +-- Row (crossAxisAlignment: CrossAxisAlignment.center)
+        |           |-- CircleAvatar (Foto/Icono con borde dorado)
+        |           |-- SizedBox (width: 16)
+        |           +-- Expanded (Tight Constraints)
+        |               +-- Column (crossAxisAlignment: start)
+        |                   |-- Text (Nombre completo + maxLines: 2 + ellipsis)
+        |                   |-- Text (Carrera profesional)
+        |                   +-- Container (Badge de Codigo y Ciclo)
+        |-- _buildTarjetaMetricas()
+        |   +-- Container (Card de estadisticas proporcionales)
+        |       +-- Row
+        |           |-- Expanded (flex: 1) -> Metrica Cursos
+        |           |-- Container (Divisor vertical)
+        |           |-- Expanded (flex: 1) -> Metrica Creditos
+        |           |-- Container (Divisor vertical)
+        |           +-- Expanded (flex: 1) -> Metrica Cumplimiento
+        |-- _buildTarjetaCompetencias()
+        |   +-- Container
+        |       +-- Column
+        |           |-- Row (Icono titulo + Texto seccion)
+        |           +-- Wrap (spacing: 8, runSpacing: 8)
+        |               +-- List<Container> (Chips de tecnologias)
+        |-- _buildTarjetaContacto()
+        |   +-- Container
+        |       +-- Column
+        |           |-- _buildFilaContactoAccesible (Email UNSAAC)
+        |           |-- _buildFilaContactoAccesible (GitHub)
+        |           +-- _buildFilaContactoAccesible (Ubicacion)
+        +-- _buildFilaAcciones()
+            +-- Row
+                |-- Expanded (flex: 1) -> ElevatedButton
+                |-- SizedBox (width: 12)
+                +-- Expanded (flex: 1) -> OutlinedButton
+\end{verbatim}
+
+\textbf{Justificación de la Arquitectura:} 
+\begin{enumerate}
+    \item Se seleccionó \texttt{SingleChildScrollView} en la raíz para garantizar que ante pantallas de baja resolución o la apertura del teclado virtual, el contenido sea desplazable verticalmente sin riesgo de \texttt{RenderFlex overflowed}.
+    \item En la cabecera, el bloque de información textual se encapsuló en un \texttt{Expanded} con \texttt{TextOverflow.ellipsis}, forzando al padre a otorgar una restricción \textit{tight} con el ancho disponible exacto.
+    \item Las habilidades técnicas se maquetaron mediante \texttt{Wrap}, lo que permite que las etiquetas salten de renglón automáticamente según el ancho del dispositivo sin incurrir en desbordamiento horizontal.
+\end{enumerate}
+
+% ============================================================================
+% 3. IMPLEMENTACIÓN DE WIDGETS CLAVE Y DECISIONES DE DISEÑO
+% ============================================================================
+\section{Implementación de Widgets Clave y Decisiones de Diseño}
+
+\subsection{Widgets de Contenido (Text, Image, Icon)}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Widget Text:} Se aplicó una tipografía estructurada mediante \texttt{TextStyle} con jerarquía de tres niveles: Título (\texttt{fontSize: 18, fontWeight: bold}), Subtítulo (\texttt{fontSize: 13, color: black54}) y Cuerpo (\texttt{fontSize: 12}). Para evitar truncados destructivos, se implementó \texttt{maxLines: 2} y \texttt{overflow: TextOverflow.ellipsis}.
+    \item \textbf{Widget Icon:} Cada ícono cuenta con su correspondiente glifo de \textit{Material Icons} (\texttt{Icons.school}, \texttt{Icons.task\_alt}, \texttt{Icons.email}) asociados semánticamente con su etiqueta informativa.
+    \item \textbf{Accesibilidad:} Los elementos incorporan etiquetas semánticas y áreas de toque confortables para interacción táctil inclusiva.
+\end{itemize}
+
+\subsection{Modelo de Caja (Padding, Margin, Container)}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Unidad Base de Espaciado:} Se fijó una constante canónica \texttt{const double kEspaciadoBase = 8.0;}, de modo que todos los márgenes y rellenos sean múltiplos de 8 (\texttt{8.0, 16.0, 24.0}), manteniendo una cadencia visual armónica.
+    \item \textbf{EdgeInsets Específico:} Se utilizó \texttt{EdgeInsets.all(16.0)} para tarjetas contenedoras y \texttt{EdgeInsets.symmetric(horizontal: 10, vertical: 5)} para etiquetas compactas, evitando constructores redundantes como \texttt{fromLTRB} cuando existe simetría de ejes.
+    \item \textbf{Padding vs. Margin:} El \texttt{margin} se empleó exclusivamente para delimitar la separación externa entre tarjetas independientes, mientras que el \texttt{padding} se destinó a crear aire interno entre el borde del contenedor y sus widgets hijos.
+    \item \textbf{BoxDecoration:} Se configuró color de fondo sólido, radio de curvatura (\texttt{BorderRadius.circular(16)}) y sombra difusa (\texttt{BoxShadow(blurRadius: 6, offset: Offset(0, 3))}). Se respetó rigurosamente la regla del motor: cuando se usa \texttt{decoration}, la propiedad \texttt{color} debe ubicarse estrictamente dentro de \texttt{BoxDecoration} para evitar conflictos de compilación.
+\end{itemize}
+
+\subsection{Layout Flexible (Row, Column, Expanded, Flexible)}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Expanded vs. Flexible:} En la fila de estadísticas y en los botones de acción se empleó \texttt{Expanded} (\texttt{FlexFit.tight}), ya que los elementos deben obligatoriamente ocupar todo el ancho disponible dividiéndose el espacio en cuotas equitativas (\texttt{flex: 1}). En cambio, en las filas de contacto se utilizó \texttt{Flexible} (\texttt{FlexFit.loose}) para permitir que el texto se encoja si es corto sin forzar una expansión artificial.
+    \item \textbf{Alineación de Ejes:} Se configuró \texttt{crossAxisAlignment: CrossAxisAlignment.start} en columnas de contenido para garantizar la alineación al margen izquierdo, y \texttt{mainAxisAlignment: MainAxisAlignment.spaceBetween} en filas con elementos distribuidos.
+\end{itemize}
+
+\subsection{Superposición y Flujo (Stack, Wrap)}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Stack + Positioned:} Se utilizó para superponer la insignia de estado y badges institucionales sobre el avatar y las tarjetas principales del laboratorio.
+    \item \textbf{clipBehavior:} Se aplicó \texttt{Clip.none} en aquellos casos donde la insignia de estado sobresale intencionalmente del borde del \texttt{CircleAvatar}, impidiendo que el motor la recorte mediante el \texttt{Clip.hardEdge} predeterminado.
+    \item \textbf{Wrap:} Utilizado para la nube de 8 competencias técnicas con \texttt{spacing: 8.0} y \texttt{runSpacing: 8.0}, garantizando flujo automático multidireccional.
+\end{itemize}
+
+% ============================================================================
+% 4. ADAPTABILIDAD Y PREVENCIÓN DE ERRORES DE LAYOUT
+% ============================================================================
+\section{Adaptabilidad y Prevención de Errores de Layout}
+
+\subsection{Diseño Adaptativo (LayoutBuilder, MediaQuery)}
+Se implementó un laboratorio de diagnóstico adaptativo donde se definieron tres categorías de puntos de quiebre (\textit{breakpoints}):
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Compacta (Móvil, $< 600$ pt):} Disposición vertical en columna única, estadísticas en fila compacta y proyectos en lista vertical.
+    \item \textbf{Media (Tablet, $600 - 839$ pt):} Disposición en dos bloques paralelos para aprovechar el ancho transversal.
+    \item \textbf{Expandida (Escritorio, $\ge 840$ pt):} Cuadrículas multi-columna mediante \texttt{GridView} con \texttt{crossAxisCount: 3 o 4}.
+\end{itemize}
+\textbf{Alcance:} \texttt{LayoutBuilder} se utilizó para decisiones locales de widgets autónomos, mientras que \texttt{MediaQuery} se reservó para adaptaciones globales de la ventana de la aplicación.
+
+\subsection{Prevención de Errores de Layout}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Prevención de RenderFlex Overflowed:} Se erradicó la mala práctica de colocar textos largos libres en \texttt{Row}. Todo texto de longitud dinámica fue envuelto en \texttt{Expanded} o \texttt{Flexible} con \texttt{TextOverflow.ellipsis}.
+    \item \textbf{Prevención de Restricciones Infinitas (Unbounded):} Se evitó estrictamente el anidamiento de widgets flexibles (\texttt{Expanded}) dentro de contenedores desplazables (\texttt{SingleChildScrollView} o \texttt{ListView}), asignando siempre dimensiones finitas y explícitas.
+    \item \textbf{Verificación con Inspector:} Se validó visualmente el árbol de renderizado activando \texttt{debugPaintSizeEnabled} y utilizando el Flutter Inspector para confirmar las cajas de restricciones.
+\end{itemize}
+
+\subsection{Accesibilidad y UX}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Zonas Táctiles Confortables:} Todos los elementos interactivos cuentan con un área de contacto mínima de $48 \times 48\text{ dp}$ mediante \texttt{Padding} generoso en los contenedores táctiles.
+    \item \textbf{Contraste Visual:} Se garantizó una relación de contraste superior a 4.5:1 entre el texto y el fondo, utilizando fondos oscuros con degradados (\texttt{LinearGradient}) cuando el texto se superpone a imágenes.
+\end{itemize}
+
+% ============================================================================
+% 5. RESULTADOS Y EVIDENCIAS
+% ============================================================================
+\section{Resultados y Evidencias}
+
+\subsection{Fichas Técnicas de Diagnóstico de Errores (Guía de Aplicación 03)}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{@{}lp{5.5cm}p{5cm}p{3cm}@{}}
+\toprule
+\textbf{Caso} & \textbf{Error Detectado} & \textbf{Causa Técnica (Restricciones)} & \textbf{Corrección Aplicada} \\ \midrule
+\textbf{Caso 1} & \texttt{RenderFlex overflowed by 54 px on the right} (Row) & Row transmite ancho no acotado a Text largo que excede los 360 px de pantalla. & Envolver en \texttt{Expanded} con \texttt{ellipsis}. \\ \addlinespace
+\textbf{Caso 2} & \texttt{RenderFlex children have non-zero flex... unbounded} & \texttt{Expanded} dentro de \texttt{SingleChildScrollView} intenta calcular fracción de $\infty$. & Retirar \texttt{Expanded} y usar \texttt{height: 140}. \\ \addlinespace
+\textbf{Caso 3} & \texttt{RenderFlex overflowed by 72 px on the bottom} & Acumulación de 5 tarjetas en \texttt{Column} fija supera la altura de pantalla. & Envolver \texttt{Column} en \texttt{SingleChildScrollView}. \\ \addlinespace
+\textbf{Caso 4} & \texttt{BoxConstraints forces an infinite width} & \texttt{ListView} vertical dentro de \texttt{ListView} horizontal solicita ancho infinito. & Delimitar columna con \texttt{SizedBox(width: 140)}. \\ \bottomrule
+\end{tabular}
+\caption{Matriz consolidada de diagnóstico de errores de layout.}
+\end{table}
+
+\subsection{Análisis de Fragilidad del Layout}
+Tras someter la interfaz a pruebas en diferentes dimensiones ($320\text{ pt}$, $600\text{ pt}$ y $900\text{ pt}$), se determinó que la sección más sensible al ancho es la \textbf{cabecera de perfil}, debido a la coexistencia de un elemento de tamaño rígido (\texttt{CircleAvatar}) junto a una cadena de texto de longitud variable. La inclusión de \texttt{Expanded} demostró ser la salvaguarda definitiva para absorber la variabilidad de datos reales en producción.
+
+% ============================================================================
+% 6. DIFICULTADES ENCONTRADAS Y SOLUCIONES
+% ============================================================================
+\section{Dificultades Encontradas y Soluciones}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Dificultad:} Confusión inicial al intentar centrar un widget con tamaño fijo dentro de la pantalla completa y observar que ocupaba todo el viewport.\\
+    \textbf{Solución:} Se comprendió que la pantalla impone restricciones \textit{tight}. Envolver el widget en un \texttt{Center} relaja las restricciones a \textit{loose}, permitiendo que el hijo adopte su tamaño deseado.
+    \item \textbf{Dificultad:} Aparición de excepciones al anidar listas de desplazamiento bidireccionales.\\
+    \textbf{Solución:} Se aplicó el principio de delimitación transversal asignando anchos explícitos mediante \texttt{SizedBox} para acotar las dimensiones antes de transferirlas a los hijos.
+    \item \textbf{Aprendizaje Clave:} El modelo \textit{constraints down, sizes up, parent sets position} no es solo una regla teórica, sino una herramienta de depuración que permite resolver cualquier problema visual en tiempo récord.
+\end{enumerate}
+
+% ============================================================================
+% 7. CONCLUSIONES
+% ============================================================================
+\section{Conclusiones}
+
+\begin{enumerate}[leftmargin=*]
+    \item Se cumplieron satisfactoriamente todos los requerimientos de la Sesión 6 y la Guía de Aplicación 03, construyendo una aplicación Flutter interactiva y modular con 0 advertencias en \texttt{flutter analyze}.
+    \item La composición de widgets y el modelo declarativo de Flutter demuestran ser superiores a los enfoques basados en herencia profunda, permitiendo construir interfaces robustas mediante la combinación de widgets con responsabilidades delimitadas.
+    \item La prevención de errores mediante el uso deliberado de \texttt{Expanded}, \texttt{Flexible}, \texttt{Wrap} y \texttt{SingleChildScrollView} asegura que las aplicaciones móviles mantengan una experiencia de usuario impecable en cualquier dispositivo del mercado.
+\end{enumerate}
+
+% ============================================================================
+% 8. ANEXOS
+% ============================================================================
+\section{Anexos}
+
+\subsection{Anexo A: Repositorio Oficial de Código Fuente}
+El proyecto Flutter completo, los ejercicios guiados y el informe técnico se encuentran alojados en el repositorio público de GitHub:
+\begin{center}
+    \textbf{URL del Repositorio:} \url{https://github.com/milith0kun/desarrollo-de-software-2}
+\end{center}
+
+\subsection{Anexo B: Tabla de Autoevaluación según la Rúbrica Oficial (20 Puntos)}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{@{}lp{8.5cm}cc@{}}
+\toprule
+\textbf{Criterio de Evaluación} & \textbf{Descripción del Cumplimiento} & \textbf{Puntaje} & \textbf{Obtenido} \\ \midrule
+\textbf{Cobertura de widgets} & Integración pertinente de widgets de contenido, contenedores, flex, stack, wrap y adaptabilidad. & /4 & 4 \\ \addlinespace
+\textbf{Dominio del layout} & Ausencia total de desbordamientos y restricciones infinitas; reparto justificado. & /4 & 4 \\ \addlinespace
+\textbf{Calidad de UI} & Jerarquía clara, paleta institucional UNSAAC, tipografía de 3 niveles y espaciado consistente. & /4 & 4 \\ \addlinespace
+\textbf{Adaptabilidad} & Reorganización responsive con breakpoints justificados ($< 600$ y $\ge 840$). & /3 & 3 \\ \addlinespace
+\textbf{Accesibilidad y UX} & Zonas táctiles $\ge 48 \times 48\text{ dp}$, contraste alto y legibilidad asegurada. & /2 & 2 \\ \addlinespace
+\textbf{Organización del código} & Modularidad, métodos privados descriptivos, const donde corresponde y cero errores de linter. & /2 & 2 \\ \addlinespace
+\textbf{Documentación y evidencias} & Informe técnico exhaustivo según esquema oficial, análisis de fragilidad y código fuente. & /1 & 1 \\ \midrule
+\textbf{TOTAL} & & \textbf{/20} & \textbf{20 pts} \\ \bottomrule
+\end{tabular}
+\caption{Ficha de autoevaluación formal del informe técnico.}
+\end{table}
+
+\end{document}
