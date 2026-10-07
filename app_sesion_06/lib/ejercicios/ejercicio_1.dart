@@ -104,11 +104,12 @@ class Ejercicio1Screen extends StatelessWidget {
                     color: Colors.green,
                     width: 400,
                     height: 50,
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                     child: const Center(
                       child: Text(
                         'Container Verde\n(Pide 400x50 -> Mide 200x200)',
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11.5),
                       ),
                     ),
                   ),

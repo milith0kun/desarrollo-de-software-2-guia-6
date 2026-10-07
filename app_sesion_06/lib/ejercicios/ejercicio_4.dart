@@ -97,9 +97,9 @@ class Ejercicio4Screen extends StatelessWidget {
 
   Widget _buildColumnaItem(String titulo, List<String> items, Color bgColor, Color textColor) {
     return SizedBox(
-      width: 160,
+      width: 115,
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(10),
@@ -110,18 +110,18 @@ class Ejercicio4Screen extends StatelessWidget {
           children: [
             Text(
               titulo,
-              style: TextStyle(fontWeight: FontWeight.bold, color: textColor, fontSize: 14),
+              style: TextStyle(fontWeight: FontWeight.bold, color: textColor, fontSize: 13),
             ),
-            const Divider(height: 16),
+            const Divider(height: 12),
             ...items.map(
               (item) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 3.0),
+                padding: const EdgeInsets.symmetric(vertical: 2.5),
                 child: Row(
                   children: [
-                    Icon(Icons.check_circle_outline, size: 14, color: textColor),
-                    const SizedBox(width: 6),
+                    Icon(Icons.check_circle_outline, size: 13, color: textColor),
+                    const SizedBox(width: 4),
                     Expanded(
-                      child: Text(item, style: const TextStyle(fontSize: 12)),
+                      child: Text(item, style: const TextStyle(fontSize: 10.5)),
                     ),
                   ],
                 ),

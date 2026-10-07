@@ -73,40 +73,51 @@ class Ejercicio3Screen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Simulación de pantalla angosta (220px):', style: TextStyle(fontSize: 11, color: Colors.red)),
+                  const Text('Simulación de pantalla angosta:', style: TextStyle(fontSize: 11, color: Colors.red)),
                   const SizedBox(height: 8),
-                  SizedBox(
-                    width: 220,
-                    child: Stack(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          color: Colors.white,
-                          child: const Row(
-                            children: [
-                              Icon(Icons.shopping_cart, size: 32, color: Colors.blueGrey),
-                              SizedBox(width: 8),
-                              Text('Precio total: S/ 1,250.00 (incluye IGV y desc.)'),
-                            ],
-                          ),
-                        ),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          top: 0,
-                          child: Container(
-                            width: 14,
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [Colors.yellow, Colors.black, Colors.yellow, Colors.black],
-                                stops: [0.0, 0.25, 0.5, 0.75],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(6),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              color: Colors.white,
+                              child: OverflowBox(
+                                minWidth: 0,
+                                maxWidth: 600,
+                                alignment: Alignment.centerLeft,
+                                child: const Row(
+                                  children: [
+                                    Icon(Icons.shopping_cart, size: 28, color: Colors.blueGrey),
+                                    SizedBox(width: 8),
+                                    Text('Precio total: S/ 1,250.00 (incluye IGV y descuentos por campaña de inicio)', style: TextStyle(fontSize: 13)),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                          Positioned(
+                            right: 0,
+                            bottom: 0,
+                            top: 0,
+                            child: Container(
+                              width: 14,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [Colors.yellow, Colors.black, Colors.yellow, Colors.black],
+                                  stops: [0.0, 0.25, 0.5, 0.75],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

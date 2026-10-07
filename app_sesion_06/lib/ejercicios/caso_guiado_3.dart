@@ -49,9 +49,12 @@ class CasoGuiado3Screen extends StatelessWidget {
                       children: [
                         Icon(Icons.checklist, color: Color(0xFF7A1F2B)),
                         SizedBox(width: 8),
-                        Text(
-                          'Mis Tareas Pendientes (Semestre 2026-II)',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        Expanded(
+                          child: Text(
+                            'Mis Tareas Pendientes (Semestre 2026-II)',
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),

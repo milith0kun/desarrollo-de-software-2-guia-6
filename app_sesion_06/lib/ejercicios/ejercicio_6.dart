@@ -26,18 +26,18 @@ class Ejercicio6Screen extends StatelessWidget {
           children: [
             const Text(
               'Anatomía de un Mensaje de Error en Flutter',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Color(0xFF7A1F2B)),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF7A1F2B)),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
             const Text(
-              'Aprender a leer el stacktrace y los logs de Flutter ahorra horas de depuración a ciegas.',
-              style: TextStyle(fontSize: 13, color: Colors.black54),
+              'Aprender a leer el stacktrace y los logs de Flutter ahorra horas de depuración.',
+              style: TextStyle(fontSize: 12, color: Colors.black54),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 14),
 
             // Visor de consola simulado
             Container(
-              padding: const EdgeInsets.all(14),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
                 color: const Color(0xFF1E1E1E),
                 borderRadius: BorderRadius.circular(10),
@@ -50,33 +50,31 @@ class Ejercicio6Screen extends StatelessWidget {
                     children: [
                       Icon(Icons.terminal, color: Colors.amber, size: 18),
                       SizedBox(width: 8),
-                      Text('Flutter Console Log (Error Real)', style: TextStyle(color: Colors.amber, fontFamily: 'monospace', fontWeight: FontWeight.bold)),
+                      Text('Flutter Console Log (Error Real)', style: TextStyle(color: Colors.amber, fontFamily: 'monospace', fontWeight: FontWeight.bold, fontSize: 13)),
                     ],
                   ),
-                  Divider(color: Colors.white24, height: 20),
+                  Divider(color: Colors.white24, height: 16),
                   Text(
-                    '══╡ EXCEPTION CAUGHT BY RENDERING LIBRARY ╞═══════════════════\n'
-                    'The following assertion was thrown during layout:\n'
+                    'EXCEPTION CAUGHT BY RENDERING LIBRARY\n'
                     'A RenderFlex overflowed by 48.0 pixels on the right.\n'
                     '\n'
                     'The relevant error-causing widget was:\n'
                     '  Row lib/pantalla_perfil.dart:45:12\n'
                     '\n'
                     'The overflowing RenderFlex has an orientation of Axis.horizontal.\n'
-                    'The edge of the RenderFlex that is overflowing has an offset of 48.0 pixels.\n'
-                    '════════════════════════════════════════════════════════════════',
-                    style: TextStyle(color: Color(0xFFE5E7EB), fontFamily: 'monospace', fontSize: 11, height: 1.4),
+                    'The edge of the RenderFlex that is overflowing has an offset of 48.0 pixels.',
+                    style: TextStyle(color: Color(0xFFE5E7EB), fontFamily: 'monospace', fontSize: 11, height: 1.35),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 18),
 
             const Text(
               'Desglose y Decodificación de Partes:',
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
             _buildItemAnalisis(
               etiqueta: '1. Tipo de RenderObject',
@@ -84,7 +82,7 @@ class Ejercicio6Screen extends StatelessWidget {
               significado: 'El objeto interno responsable del layout de Row, Column o Flex.',
               color: Colors.cyan,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
 
             _buildItemAnalisis(
               etiqueta: '2. Orientación del desborde',
@@ -92,7 +90,7 @@ class Ejercicio6Screen extends StatelessWidget {
               significado: 'El contenido excedió el ancho horizontal permitido en el lado derecho.',
               color: Colors.amber,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
 
             _buildItemAnalisis(
               etiqueta: '3. Magnitud del error',
@@ -100,13 +98,13 @@ class Ejercicio6Screen extends StatelessWidget {
               significado: 'El widget hijo pidió 48 píxeles más de lo que el padre tenía disponible.',
               color: Colors.orange,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
 
             _buildItemAnalisis(
               etiqueta: '4. Archivo y Línea',
               valor: 'Row en lib/pantalla_perfil.dart:45',
               significado: 'Señala exactamente el widget padre y la línea donde ocurrió la falla.',
-              color: Colors.purpleAccent,
+              color: Colors.purple,
             ),
           ],
         ),
@@ -130,10 +128,12 @@ class Ejercicio6Screen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 4,
             children: [
               Text(etiqueta, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.black87)),
-              const SizedBox(width: 8),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(color: color.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(4)),
@@ -142,7 +142,7 @@ class Ejercicio6Screen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 4),
-          Text(significado, style: const TextStyle(fontSize: 12, color: Colors.black54)),
+          Text(significado, style: const TextStyle(fontSize: 11, color: Colors.black54)),
         ],
       ),
     );

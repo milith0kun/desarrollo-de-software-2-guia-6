@@ -36,21 +36,22 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
       appBar: AppBar(
         title: const Column(
           children: [
-            Text('UNSAAC · Guía de Aplicación 03', style: TextStyle(fontSize: 13)),
-            Text('Diagnóstico de Restricciones (20 pts)', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text('UNSAAC · Guía de Aplicación 03', style: TextStyle(fontSize: 12)),
+            Text('Diagnóstico de Restricciones', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
           ],
         ),
         bottom: TabBar(
           controller: _tabController,
-          isScrollable: true,
           indicatorColor: const Color(0xFFC9971F),
+          indicatorWeight: 3,
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white70,
+          labelStyle: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
           tabs: const [
-            Tab(text: 'Caso 1: Overflow Horiz.', icon: Icon(Icons.arrow_right_alt)),
-            Tab(text: 'Caso 2: Expanded en Scroll', icon: Icon(Icons.all_inclusive)),
-            Tab(text: 'Caso 3: Overflow Vert.', icon: Icon(Icons.arrow_downward)),
-            Tab(text: 'Caso 4: ListView Anidado', icon: Icon(Icons.view_stream)),
+            Tab(text: '1. Row', icon: Icon(Icons.arrow_forward, size: 20)),
+            Tab(text: '2. Scroll', icon: Icon(Icons.all_inclusive, size: 20)),
+            Tab(text: '3. Column', icon: Icon(Icons.arrow_downward, size: 20)),
+            Tab(text: '4. ListView', icon: Icon(Icons.view_stream, size: 20)),
           ],
         ),
       ),
@@ -71,7 +72,7 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
   // --------------------------------------------------------------------------
   Widget _buildCaso1Tab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -83,24 +84,20 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
             explicacionRestricciones: 'La Row recibe de la pantalla un ancho finito (ej. 360px), pero transmite restricciones no acotadas (minW=0, maxW=infinity) a sus hijos. El Text solicita 314px y el Icon 48px más espaciados. La suma (362px + márgenes) excede los 360px disponibles, provocando el desbordamiento.',
             solucionJustificada: 'Se envuelve el Text en un widget Expanded(child: Text(..., overflow: TextOverflow.ellipsis)). Expanded convierte la restricción horizontal del Text en tight con el espacio sobrante exacto de la Row, truncando elegantemente si el texto no cabe.',
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           _buildComparadorVisual(
             tituloAntes: 'Antes (Simulación con Desborde):',
-            widgetAntes: Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.white,
-              child: const Row(
-                children: [
-                  Icon(Icons.location_on, color: Color(0xFF7A1F2B), size: 28),
-                  SizedBox(width: 8),
-                  Text('Circuito Turístico Valle Sagrado de los Incas - Pisac, Ollantaytambo y Chinchero', style: TextStyle(fontSize: 14)),
-                ],
-              ),
+            widgetAntes: const Row(
+              children: [
+                Icon(Icons.location_on, color: Color(0xFF7A1F2B), size: 24),
+                SizedBox(width: 6),
+                Text('Circuito Turístico Valle Sagrado de los Incas - Pisac', style: TextStyle(fontSize: 13)),
+              ],
             ),
             mostrarOverflowBand: true,
             tituloDespues: 'Después (Corregido con Expanded + Ellipsis):',
             widgetDespues: Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -108,12 +105,12 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
               ),
               child: const Row(
                 children: [
-                  Icon(Icons.location_on, color: Color(0xFF7A1F2B), size: 28),
-                  SizedBox(width: 10),
+                  Icon(Icons.location_on, color: Color(0xFF7A1F2B), size: 24),
+                  SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Circuito Turístico Valle Sagrado de los Incas - Pisac, Ollantaytambo y Chinchero',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      'Circuito Turístico Valle Sagrado de los Incas - Pisac',
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -131,7 +128,7 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
   // --------------------------------------------------------------------------
   Widget _buildCaso2Tab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -141,13 +138,13 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
             mensajeError: 'RenderFlex children have non-zero flex but incoming height constraints are unbounded.\nThe relevant error-causing widget was: Column',
             clasificacion: 'Restricciones no acotadas (unbounded) mal combinadas con Expanded.',
             explicacionRestricciones: 'SingleChildScrollView impone restricciones de altura no acotadas (maxHeight = double.infinity) para permitir desplazamiento. Al colocar un Expanded dentro de la Column, Expanded intenta calcular qué fracción de infinity le corresponde. Al ser matemáticamente indefinido, Flutter arroja una excepción en tiempo de layout.',
-            solucionJustificada: 'Se elimina el widget Expanded dentro del scroll y se asigna una altura explícita finita (ej. height: 180 o SizedBox con dimensión definida) o se permite al hijo adoptar su tamaño intrínseco.',
+            solucionJustificada: 'Se elimina el widget Expanded dentro del scroll y se asigna una altura explícita finita (ej. height: 140 o SizedBox con dimensión definida) o se permite al hijo adoptar su tamaño intrínseco.',
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           _buildComparadorVisual(
             tituloAntes: 'Código Erróneo:',
             widgetAntes: Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               color: Colors.red.shade100,
               child: const Text(
                 'SingleChildScrollView(\n  child: Column(\n    children: [\n      Expanded(child: Container(color: Colors.blue))\n    ]\n  )\n)',
@@ -157,8 +154,8 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
             mostrarOverflowBand: false,
             tituloDespues: 'Después (Solución con Altura Explícita):',
             widgetDespues: Container(
-              height: 140,
-              padding: const EdgeInsets.all(12),
+              height: 110,
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.indigo.shade50,
                 borderRadius: BorderRadius.circular(8),
@@ -168,10 +165,10 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.check_circle, color: Colors.green, size: 28),
-                    const SizedBox(height: 6),
-                    Text('Container(height: 140, color: Colors.indigo)', style: TextStyle(color: Colors.indigo.shade900, fontWeight: FontWeight.bold, fontSize: 13)),
-                    const Text('Layout acotado y estable dentro del scroll', style: TextStyle(fontSize: 11, color: Colors.black54)),
+                    const Icon(Icons.check_circle, color: Colors.green, size: 24),
+                    const SizedBox(height: 4),
+                    Text('Container(height: 110, color: Colors.indigo)', style: TextStyle(color: Colors.indigo.shade900, fontWeight: FontWeight.bold, fontSize: 12)),
+                    const Text('Layout acotado y estable dentro del scroll', style: TextStyle(fontSize: 10, color: Colors.black54)),
                   ],
                 ),
               ),
@@ -187,7 +184,7 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
   // --------------------------------------------------------------------------
   Widget _buildCaso3Tab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -199,45 +196,38 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
             explicacionRestricciones: 'La Column recibe un maxHeight acotado por la pantalla física (ej. 600px). Sus hijos solicitan individualmente tamaños legítimos (tarjetas, textos, botones), pero la SUMATORIA acumulada excede la altura visible. No hay un hijo individual culpable para usar Expanded.',
             solucionJustificada: 'Envolver la Column (o su contenedor padre) en un SingleChildScrollView para transformar la restricción vertical en unbounded permisiva de scroll, garantizando que el usuario pueda acceder a todo el contenido.',
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           _buildComparadorVisual(
             tituloAntes: 'Antes: Column Rígida (Desborde en pantalla corta):',
-            widgetAntes: Container(
-              height: 90,
-              padding: const EdgeInsets.all(8),
-              color: Colors.white,
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('1. Registro de Matrícula UNSAAC', style: TextStyle(fontSize: 12)),
-                  Text('2. Pago de Tasas Educativas', style: TextStyle(fontSize: 12)),
-                  Text('3. Validación de Horario Académico', style: TextStyle(fontSize: 12)),
-                  Text('4. Confirmación de Cursos', style: TextStyle(fontSize: 12)),
-                  Text('5. Generación de Constancia', style: TextStyle(fontSize: 12)),
-                ],
-              ),
+            widgetAntes: const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('1. Registro de Matrícula UNSAAC', style: TextStyle(fontSize: 11)),
+                Text('2. Pago de Tasas Educativas', style: TextStyle(fontSize: 11)),
+                Text('3. Validación de Horario Académico', style: TextStyle(fontSize: 11)),
+              ],
             ),
             mostrarOverflowBand: true,
             tituloDespues: 'Después: Column envuelta en SingleChildScrollView:',
             widgetDespues: Container(
-              height: 140,
+              height: 120,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(color: Colors.grey.shade300),
               ),
               child: const SingleChildScrollView(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(8),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('1. Registro de Matrícula UNSAAC', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                    Divider(height: 12),
-                    Text('2. Pago de Tasas Educativas', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                    Divider(height: 12),
-                    Text('3. Validación de Horario Académico', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
-                    Divider(height: 12),
-                    Text('4. Confirmación de Cursos Semestre 2026-II', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                    Text('1. Registro de Matrícula UNSAAC', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                    Divider(height: 8),
+                    Text('2. Pago de Tasas Educativas', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                    Divider(height: 8),
+                    Text('3. Validación de Horario Académico', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
+                    Divider(height: 8),
+                    Text('4. Confirmación de Cursos Semestre 2026-II', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600)),
                   ],
                 ),
               ),
@@ -253,7 +243,7 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
   // --------------------------------------------------------------------------
   Widget _buildCaso4Tab() {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -263,13 +253,13 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
             mensajeError: 'BoxConstraints forces an infinite width / Vertical viewport was given unbounded width.\nThe relevant error-causing widget was: ListView',
             clasificacion: 'Restricciones no acotadas (unbounded) en dirección transversal/scroll.',
             explicacionRestricciones: 'Un ListView horizontal le otorga ancho infinito a sus hijos. Al colocar otro ListView vertical anidado adentro, este último intenta tomar todo el ancho disponible del padre (infinito). El motor de Flutter no puede dibujar un widget con ancho infinito.',
-            solucionJustificada: 'Acotar el ancho del widget interno usando SizedBox(width: ...) o Container con width fijo (ej. width: 160), o estructurarlo con Column/Card delimitadas.',
+            solucionJustificada: 'Acotar el ancho del widget interno usando SizedBox(width: ...) o Container con width fijo (ej. width: 140), o estructurarlo con Column/Card delimitadas.',
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           _buildComparadorVisual(
             tituloAntes: 'Código Erróneo (ListView sin ancho dentro de ListView horiz.):',
             widgetAntes: Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(10),
               color: Colors.red.shade100,
               child: const Text(
                 'ListView(scrollDirection: Axis.horizontal,\n  children: [\n    ListView(children: [...]) // ERROR: Ancho infinito\n  ]\n)',
@@ -277,9 +267,9 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
               ),
             ),
             mostrarOverflowBand: false,
-            tituloDespues: 'Después: Cada columna delimitada con SizedBox(width: 150):',
+            tituloDespues: 'Después: Cada columna delimitada con SizedBox(width: 140):',
             widgetDespues: Container(
-              height: 120,
+              height: 100,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -305,7 +295,7 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
 
   Widget _buildMiniCard(String titulo, Color color) {
     return SizedBox(
-      width: 140,
+      width: 130,
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -317,8 +307,8 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(titulo, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 12)),
-            const Text('Ancho acotado: 140px', style: TextStyle(fontSize: 10, color: Colors.black54)),
+            Text(titulo, style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 11)),
+            const Text('Ancho acotado: 130px', style: TextStyle(fontSize: 9, color: Colors.black54)),
           ],
         ),
       ),
@@ -336,46 +326,46 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
     return Card(
       elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(14.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               children: [
                 CircleAvatar(
-                  radius: 14,
+                  radius: 12,
                   backgroundColor: const Color(0xFF7A1F2B),
-                  child: Text(numero, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                  child: Text(numero, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11)),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
                     titulo,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF7A1F2B)),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Color(0xFF7A1F2B)),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: const Color(0xFF1E1E1E),
                 borderRadius: BorderRadius.circular(6),
               ),
               child: Text(
                 mensajeError,
-                style: const TextStyle(color: Color(0xFFEF4444), fontFamily: 'monospace', fontSize: 11, height: 1.3),
+                style: const TextStyle(color: Color(0xFFEF4444), fontFamily: 'monospace', fontSize: 10.5, height: 1.3),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 10),
 
             _buildCampoFicha('Clasificación Causa Raíz:', clasificacion, Colors.amber.shade900),
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
             _buildCampoFicha('Explicación (Constraints go down, sizes go up):', explicacionRestricciones, Colors.black87),
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
             _buildCampoFicha('Corrección Técnica Aplicada:', solucionJustificada, Colors.green.shade800),
           ],
         ),
@@ -387,9 +377,9 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(subtitulo, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black54)),
+        Text(subtitulo, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 11, color: Colors.black54)),
         const SizedBox(height: 2),
-        Text(texto, style: TextStyle(fontSize: 12, color: colorTexto, height: 1.35)),
+        Text(texto, style: TextStyle(fontSize: 11.5, color: colorTexto, height: 1.3)),
       ],
     );
   }
@@ -404,41 +394,54 @@ class _GuiaAplicacion03ScreenState extends State<GuiaAplicacion03Screen> with Si
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(tituloAntes, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.red)),
-        const SizedBox(height: 6),
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.red.shade50,
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.red.shade200),
-          ),
-          child: Stack(
-            children: [
-              widgetAntes,
-              if (mostrarOverflowBand)
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  bottom: 0,
-                  child: Container(
-                    width: 14,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.yellow, Colors.black, Colors.yellow, Colors.black],
-                        stops: [0.0, 0.25, 0.5, 0.75],
+        Text(tituloAntes, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.red)),
+        const SizedBox(height: 4),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            height: 52,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            decoration: BoxDecoration(
+              color: Colors.red.shade50,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.red.shade200),
+            ),
+            child: Stack(
+              clipBehavior: Clip.hardEdge,
+              children: [
+                Positioned.fill(
+                  child: OverflowBox(
+                    minWidth: 0,
+                    maxWidth: 700,
+                    alignment: Alignment.centerLeft,
+                    child: widgetAntes,
+                  ),
+                ),
+                if (mostrarOverflowBand)
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    child: Container(
+                      width: 14,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Colors.yellow, Colors.black, Colors.yellow, Colors.black],
+                          stops: [0.0, 0.25, 0.5, 0.75],
+                        ),
                       ),
                     ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
-        const SizedBox(height: 14),
-        Text(tituloDespues, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: Colors.green.shade800)),
-        const SizedBox(height: 6),
+        const SizedBox(height: 12),
+        Text(tituloDespues, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.green.shade800)),
+        const SizedBox(height: 4),
         Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
             color: Colors.green.shade50,
             borderRadius: BorderRadius.circular(8),

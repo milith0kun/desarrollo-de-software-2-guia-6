@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -21,8 +20,7 @@ import 'package:app_sesion_06/ejercicios/ejercicio_6.dart';
 import 'package:app_sesion_06/ejercicios/ejercicio_7.dart';
 import 'package:app_sesion_06/ejercicios/autoevaluacion_sesion_06.dart';
 
-Future<void> _cargarFuentesReales() async {
-  // 1. Cargar MaterialIcons para glifos e iconos
+Future<void> _cargarFuentesCompletas() async {
   final iconFile = File(r'C:\Users\PC\flutter\bin\cache\artifacts\material_fonts\materialicons-regular.otf');
   if (iconFile.existsSync()) {
     final fontLoader = FontLoader('MaterialIcons');
@@ -30,24 +28,45 @@ Future<void> _cargarFuentesReales() async {
     await fontLoader.load();
   }
 
-  // 2. Cargar fuente tipográfica del sistema (Segoe UI) mapeada a la fuente por defecto
-  final fontFile = File(r'C:\Windows\Fonts\segoeui.ttf');
-  if (fontFile.existsSync()) {
+  final segoeFile = File(r'C:\Windows\Fonts\segoeui.ttf');
+  if (segoeFile.existsSync()) {
+    final bytes = segoeFile.readAsBytesSync();
     final fontLoader = FontLoader('Roboto');
-    fontLoader.addFont(Future.value(ByteData.sublistView(fontFile.readAsBytesSync())));
+    fontLoader.addFont(Future.value(ByteData.sublistView(bytes)));
     await fontLoader.load();
 
     final sansLoader = FontLoader('sans-serif');
-    sansLoader.addFont(Future.value(ByteData.sublistView(fontFile.readAsBytesSync())));
+    sansLoader.addFont(Future.value(ByteData.sublistView(bytes)));
     await sansLoader.load();
   }
 
-  // Cargar negrita para títulos
-  final boldFile = File(r'C:\Windows\Fonts\segoeuib.ttf');
-  if (boldFile.existsSync()) {
+  final segoeBold = File(r'C:\Windows\Fonts\segoeuib.ttf');
+  if (segoeBold.existsSync()) {
+    final bytes = segoeBold.readAsBytesSync();
     final fontLoader = FontLoader('Roboto');
-    fontLoader.addFont(Future.value(ByteData.sublistView(boldFile.readAsBytesSync())));
+    fontLoader.addFont(Future.value(ByteData.sublistView(bytes)));
     await fontLoader.load();
+  }
+
+  final consolaFile = File(r'C:\Windows\Fonts\consola.ttf');
+  if (consolaFile.existsSync()) {
+    final bytes = consolaFile.readAsBytesSync();
+
+    final monoLoader = FontLoader('monospace');
+    monoLoader.addFont(Future.value(ByteData.sublistView(bytes)));
+    await monoLoader.load();
+
+    final consolasLoader = FontLoader('Consolas');
+    consolasLoader.addFont(Future.value(ByteData.sublistView(bytes)));
+    await consolasLoader.load();
+
+    final courierLoader = FontLoader('Courier');
+    courierLoader.addFont(Future.value(ByteData.sublistView(bytes)));
+    await courierLoader.load();
+
+    final courierNewLoader = FontLoader('Courier New');
+    courierNewLoader.addFont(Future.value(ByteData.sublistView(bytes)));
+    await courierNewLoader.load();
   }
 }
 
@@ -55,7 +74,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() async {
-    await _cargarFuentesReales();
+    await _cargarFuentesCompletas();
   });
 
   final List<Map<String, dynamic>> screensToCapture = [
@@ -81,7 +100,7 @@ void main() {
       FlutterError.onError = (FlutterErrorDetails details) {};
 
       tester.view.physicalSize = const Size(1080, 2340);
-      tester.view.devicePixelRatio = 2.75;
+      tester.view.devicePixelRatio = 2.625;
 
       final GlobalKey key = GlobalKey();
 
@@ -89,6 +108,7 @@ void main() {
         MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
+            platform: TargetPlatform.android,
             fontFamily: 'Roboto',
             colorScheme: ColorScheme.fromSeed(
               seedColor: const Color(0xFF7A1F2B),
@@ -97,11 +117,21 @@ void main() {
             ),
             useMaterial3: true,
             scaffoldBackgroundColor: const Color(0xFFF1F5F9),
+            scrollbarTheme: const ScrollbarThemeData(
+              thumbVisibility: WidgetStatePropertyAll(false),
+              trackVisibility: WidgetStatePropertyAll(false),
+            ),
             appBarTheme: const AppBarTheme(
               backgroundColor: Color(0xFF7A1F2B),
               foregroundColor: Colors.white,
             ),
           ),
+          builder: (context, child) {
+            return ScrollConfiguration(
+              behavior: const MaterialScrollBehavior().copyWith(scrollbars: false),
+              child: child!,
+            );
+          },
           home: RepaintBoundary(
             key: key,
             child: screen['widget'] as Widget,
@@ -114,7 +144,7 @@ void main() {
       await tester.runAsync(() async {
         final boundary = key.currentContext?.findRenderObject() as RenderRepaintBoundary?;
         if (boundary != null) {
-          final ui.Image image = await boundary.toImage(pixelRatio: 2.0); // Mayor resolución y nitidez
+          final ui.Image image = await boundary.toImage(pixelRatio: 2.0);
           final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
           if (byteData != null) {
             final buffer = byteData.buffer.asUint8List();

@@ -31,37 +31,52 @@ class CasoGuiado1Screen extends StatelessWidget {
             const SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(color: Colors.red.shade50, borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.red.shade200)),
-              child: SizedBox(
-                width: 260,
-                child: Stack(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.white,
-                      child: const Row(
-                        children: [
-                          CircleAvatar(radius: 24, backgroundColor: Color(0xFF7A1F2B), child: Icon(Icons.person, color: Colors.white)),
-                          SizedBox(width: 8),
-                          Text('Ana Quispe Huamán - Ingeniería de Sistemas', style: TextStyle(fontSize: 14)),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      child: Container(
-                        width: 14,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Colors.yellow, Colors.black, Colors.yellow, Colors.black],
-                            stops: [0.0, 0.25, 0.5, 0.75],
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade200),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(6),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          color: Colors.white,
+                          child: OverflowBox(
+                            minWidth: 0,
+                            maxWidth: 600,
+                            alignment: Alignment.centerLeft,
+                            child: const Row(
+                              children: [
+                                CircleAvatar(radius: 20, backgroundColor: Color(0xFF7A1F2B), child: Icon(Icons.person, color: Colors.white, size: 20)),
+                                SizedBox(width: 8),
+                                Text('Ana Quispe Huamán - Ingeniería de Sistemas y Computación UNSAAC', style: TextStyle(fontSize: 13, color: Colors.black87)),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        bottom: 0,
+                        child: Container(
+                          width: 14,
+                          decoration: const BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [Colors.yellow, Colors.black, Colors.yellow, Colors.black],
+                              stops: [0.0, 0.25, 0.5, 0.75],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

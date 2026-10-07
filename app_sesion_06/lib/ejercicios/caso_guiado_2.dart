@@ -36,7 +36,7 @@ class CasoGuiado2Screen extends StatelessWidget {
             const SizedBox(height: 10),
 
             Container(
-              height: 320,
+              height: 350,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
@@ -60,14 +60,14 @@ class CasoGuiado2Screen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     Container(
-                      height: 200,
+                      height: 180,
                       decoration: BoxDecoration(
                         color: Colors.indigo.shade600,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Center(
                         child: Text(
-                          'Contenedor con altura explícita (height: 200)\n¡Sin Expanded dentro de Scroll!',
+                          'Contenedor con altura explícita (height: 180)\n¡Sin Expanded dentro de Scroll!',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                         ),
